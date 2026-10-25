@@ -1,0 +1,16 @@
+{
+  "name": "sebmake-cinematic",
+  "metadata": { "description": "Video editing skills by sebmake" },
+  "owner": { "name": "sebmake" },
+  "plugins": [
+    {
+      "name": "sebmake-cinematicvideo-likeapplepls",
+      "description": "Edits your footage the way Apple cuts its keynote films: builds the timeline in FilmCraft, or writes an FCP7 XML file for DaVinci Resolve and Premiere Pro (EDL as a fallback). Also reviews an existing edit shot by shot.",
+      "version": "1.0.0",
+      "author": { "name": "sebmake" },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/sebmake/sebmake-cinematicvideo-likeapplepls"
+    }
+  ]
+}
