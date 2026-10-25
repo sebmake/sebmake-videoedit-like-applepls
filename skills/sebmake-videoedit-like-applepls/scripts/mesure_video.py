@@ -32,20 +32,20 @@ from concurrent.futures import ThreadPoolExecutor
 try:
     import numpy as np
 except ImportError:  # pragma: no cover
-    # numpy manque ici : le script se relance avec le Python de ~/.venv-cinematic s'il existe (une seule fois)
-    _VENV = os.path.expanduser("~/.venv-cinematic/bin/python")
-    if (os.access(_VENV, os.X_OK) and not os.environ.get("CINEMATIC_RELANCE")
+    # numpy manque ici : le script se relance avec le Python de ~/.venv-videoedit s'il existe (une seule fois)
+    _VENV = os.path.expanduser("~/.venv-videoedit/bin/python")
+    if (os.access(_VENV, os.X_OK) and not os.environ.get("VIDEOEDIT_RELANCE")
             and os.path.abspath(sys.executable) != os.path.abspath(_VENV) and sys.argv and os.path.isfile(sys.argv[0])):
-        os.environ["CINEMATIC_RELANCE"] = "1"
+        os.environ["VIDEOEDIT_RELANCE"] = "1"
         os.execv(_VENV, [_VENV] + sys.argv)
-    if os.environ.get("CINEMATIC_RELANCE") or os.path.abspath(sys.executable) == os.path.abspath(_VENV):
-        sys.stderr.write("numpy manque aussi dans ~/.venv-cinematic : ~/.venv-cinematic/bin/pip install numpy pillow\n")
+    if os.environ.get("VIDEOEDIT_RELANCE") or os.path.abspath(sys.executable) == os.path.abspath(_VENV):
+        sys.stderr.write("numpy manque aussi dans ~/.venv-videoedit : ~/.venv-videoedit/bin/pip install numpy pillow\n")
     elif os.access(_VENV, os.X_OK):
-        sys.stderr.write("numpy manque : lancer le script avec ~/.venv-cinematic/bin/python\n")
+        sys.stderr.write("numpy manque : lancer le script avec ~/.venv-videoedit/bin/python\n")
     else:
         sys.stderr.write(
-            "numpy manque. Créer un environnement : python3 -m venv ~/.venv-cinematic && "
-            "~/.venv-cinematic/bin/pip install numpy pillow ; les scripts s'en servent ensuite d'eux-mêmes.\n")
+            "numpy manque. Créer un environnement : python3 -m venv ~/.venv-videoedit && "
+            "~/.venv-videoedit/bin/pip install numpy pillow ; les scripts s'en servent ensuite d'eux-mêmes.\n")
     raise SystemExit(2)
 
 # numpy 2.0.x sur macOS arm64 (Accelerate) signale à tort « divide by zero / overflow / invalid value

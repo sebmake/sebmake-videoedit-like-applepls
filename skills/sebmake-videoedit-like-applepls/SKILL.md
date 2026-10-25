@@ -1,5 +1,5 @@
 ---
-name: sebmake-cinematicvideo-likeapplepls
+name: sebmake-videoedit-like-applepls
 description: "Montage à la manière des films de keynote Apple : monte les rushes de l'utilisateur (et sa musique) en timeline, dans FilmCraft, ou en XML FCP7 (ou EDL) pour DaVinci Resolve et Premiere Pro ; ou critique un montage existant plan par plan contre les films de sa famille (rythme, coupes, noirs, révélation, texte), avec correctifs au timecode. Quatre familles : produit et révélation, ouverture et ambiance (sketch, fiction, clôture), documentaire et témoignage, bande-annonce et usage. Use it whenever someone wants to edit their own footage like an Apple keynote film, asks for editing help, a timeline, an EDL or XML to import, or an edit critique (pacing, cuts, transitions, where the reveal or title lands), works in DaVinci Resolve, Premiere Pro or FilmCraft, even without the word Apple. Not for a product film generated in motion design (sebmake-videopresentation-likeapplepls), animating titles or logos (sebmake-motiondesign-likeapplepls), or slides (sebmake-keynote-likeapple-pls)."
 ---
 
@@ -23,11 +23,11 @@ rushes ─ analyse_rushes.py ─▶ rushes.json (complété à l'œil) ─ assem
 Corrige toujours `rushes.json` ou `montage.json`, jamais le XML ni l'EDL : ils sont réécrits à chaque export.
 
 ```bash
-SKILL="<dossier de ce SKILL.md>"   # souvent ~/.claude/skills/sebmake-cinematicvideo-likeapplepls
-PY=~/.venv-cinematic/bin/python    # Python avec numpy et Pillow
+SKILL="<dossier de ce SKILL.md>"   # souvent ~/.claude/skills/sebmake-videoedit-like-applepls
+PY=~/.venv-videoedit/bin/python    # Python avec numpy et Pillow
 ```
 
-**Prérequis.** ffmpeg et ffprobe. Python 3.9 ou plus. `analyse_rushes.py` et `critique_montage.py` demandent numpy et Pillow ; `export_xml.py --cartons png` demande Pillow (sans lui, les titres restent en texte, avec un avertissement). Mets-les dans l'environnement `~/.venv-cinematic` : `python3 -m venv ~/.venv-cinematic && ~/.venv-cinematic/bin/pip install numpy pillow`. Lancés sans numpy, `analyse_rushes.py` et `critique_montage.py` se relancent d'eux-mêmes avec son Python ; pour `--cartons png`, lance `export_xml.py` avec `$PY`. Les autres scripts n'utilisent que la bibliothèque standard. FilmCraft seulement pour le pilotage. S'il manque quelque chose, dis-le, et n'installe rien sans son accord. Sans numpy, la skill peut encore construire et exporter une timeline à partir d'un `rushes.json` rempli à la main ; elle ne peut ni analyser ni critiquer.
+**Prérequis.** ffmpeg et ffprobe. Python 3.9 ou plus. `analyse_rushes.py` et `critique_montage.py` demandent numpy et Pillow ; `export_xml.py --cartons png` demande Pillow (sans lui, les titres restent en texte, avec un avertissement). Mets-les dans l'environnement `~/.venv-videoedit` : `python3 -m venv ~/.venv-videoedit && ~/.venv-videoedit/bin/pip install numpy pillow`. Lancés sans numpy, `analyse_rushes.py` et `critique_montage.py` se relancent d'eux-mêmes avec son Python ; pour `--cartons png`, lance `export_xml.py` avec `$PY`. Les autres scripts n'utilisent que la bibliothèque standard. FilmCraft seulement pour le pilotage. S'il manque quelque chose, dis-le, et n'installe rien sans son accord. Sans numpy, la skill peut encore construire et exporter une timeline à partir d'un `rushes.json` rempli à la main ; elle ne peut ni analyser ni critiquer.
 
 ## Étape 1 — Recueil
 

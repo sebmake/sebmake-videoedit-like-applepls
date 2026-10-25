@@ -1,4 +1,4 @@
-# sebmake-cinematicvideo-likeapplepls
+# sebmake-videoedit-like-applepls
 
 Une skill Claude Code qui monte vos rushes, les vidéos brutes de votre tournage, à la manière des films projetés pendant les keynotes d'Apple. Elle assemble le film elle-même dans FilmCraft, une app de montage qu'elle pilote, ou vous remet un fichier à importer dans DaVinci Resolve ou Premiere Pro. Elle sait aussi critiquer un montage déjà fait, plan par plan, et dire quoi corriger, le plus souvent au timecode près (la position exacte dans le film, à l'image près). Ses règles ne sortent pas d'un manuel : on a découpé les films de huit keynotes, puis on a compté.
 
@@ -22,23 +22,23 @@ La critique lit une vidéo, un XML FCP7 ou une EDL et compare le montage aux fil
 
 Claude n'invente ni nom, ni chiffre, ni citation, ni la fonction d'une personne filmée : ce qui manque reste absent, et le compte rendu le signale. La musique, c'est vous qui la fournissez ; sinon, le film n'en a pas. Rien d'Apple ne passe dans vos films, ni image, ni son, ni logo, ni phrase ; les titres prennent votre police (son fichier, pour des titres en images), ou une police courante si vous n'en donnez pas.
 
-![Douze images du film de test de révélation, rendu dans FilmCraft à partir des rushes dessinés d'une lampe fictive](skills/sebmake-cinematicvideo-likeapplepls/assets/apercu-test.jpg)
+![Douze images du film de test de révélation, rendu dans FilmCraft à partir des rushes dessinés d'une lampe fictive](skills/sebmake-videoedit-like-applepls/assets/apercu-test.jpg)
 
 ## Installation
 
 En plugin Claude Code :
 
 ```bash
-claude plugin marketplace add sebmake/sebmake-cinematicvideo-likeapplepls
-claude plugin install sebmake-cinematicvideo-likeapplepls@sebmake-cinematic
+claude plugin marketplace add sebmake/sebmake-videoedit-like-applepls
+claude plugin install sebmake-videoedit-like-applepls@sebmake-videoedit
 ```
 
-À la main, copiez `skills/sebmake-cinematicvideo-likeapplepls` dans `~/.claude/skills/`.
+À la main, copiez `skills/sebmake-videoedit-like-applepls` dans `~/.claude/skills/`.
 
-Il vous faut Python 3.9 ou plus, avec ffmpeg et ffprobe dans le PATH. L'analyse des rushes et la critique demandent aussi numpy et Pillow, que la skill cherche dans `~/.venv-cinematic` :
+Il vous faut Python 3.9 ou plus, avec ffmpeg et ffprobe dans le PATH. L'analyse des rushes et la critique demandent aussi numpy et Pillow, que la skill cherche dans `~/.venv-videoedit` :
 
 ```bash
-python3 -m venv ~/.venv-cinematic && ~/.venv-cinematic/bin/pip install numpy pillow
+python3 -m venv ~/.venv-videoedit && ~/.venv-videoedit/bin/pip install numpy pillow
 ```
 
 Le reste (assemblage, exports, pilotage de FilmCraft) n'utilise que la bibliothèque standard, sauf les titres du XML en images PNG, qui demandent Pillow. Pour Premiere Pro et DaVinci Resolve, rien de plus : vous importez le fichier. Pour FilmCraft, il faut Claude Code sur la machine où tourne l'app. Si elle est fermée, la skill la lance avec son canal de contrôle, la connexion locale par laquelle Claude la pilote ; si elle tourne déjà sans ce canal, quittez-la puis relancez-la avec `open -a FilmCraft --args --control 9876`, car la skill ne ferme jamais votre projet.
@@ -51,7 +51,7 @@ Le cas de test est une lampe de bureau qui n'existe pas, « Orée » : 16 rushes
 
 Personne n'a encore ouvert un fichier de la skill dans Premiere Pro ou DaVinci Resolve. Le XML et l'EDL sont relus par l'export lui-même, par un second script, et par l'importeur de FilmCraft, qui a retrouvé chaque plan à l'image près sur trois montages de test (en XML, et l'un d'eux aussi en EDL) ; les pas à pas d'import suivent la documentation des deux logiciels sans avoir été rejoués.
 
-Une vidéo seule en dit moins qu'une timeline. Sur les rendus de test, la critique a manqué une coupe entre deux plans du même objet sur fond sombre, n'a vu aucun fondu vers ou depuis le noir, et a lu le nom, un petit texte clair sur noir, comme du noir. Qu'elle lise une vidéo ou un XML, elle prend un zoom ou une rotation pour un plan fixe. La critique reste aussi indulgente sur la place de la révélation : entre 60 et 66 % de la durée, celle-ci ne vaut qu'une remarque, et entre 66 et 69 % (ou entre 82 et 87 %), elle passe sans un mot. Les formats vertical et carré suivent les règles du 16:9 par convention, et aucun export ne recadre les plans. Le détail est dans [`critique.md`](skills/sebmake-cinematicvideo-likeapplepls/references/critique.md#8-ce-que-la-critique-ne-voit-pas) et [`logiciels.md`](skills/sebmake-cinematicvideo-likeapplepls/references/logiciels.md#7-limites-connues).
+Une vidéo seule en dit moins qu'une timeline. Sur les rendus de test, la critique a manqué une coupe entre deux plans du même objet sur fond sombre, n'a vu aucun fondu vers ou depuis le noir, et a lu le nom, un petit texte clair sur noir, comme du noir. Qu'elle lise une vidéo ou un XML, elle prend un zoom ou une rotation pour un plan fixe. La critique reste aussi indulgente sur la place de la révélation : entre 60 et 66 % de la durée, celle-ci ne vaut qu'une remarque, et entre 66 et 69 % (ou entre 82 et 87 %), elle passe sans un mot. Les formats vertical et carré suivent les règles du 16:9 par convention, et aucun export ne recadre les plans. Le détail est dans [`critique.md`](skills/sebmake-videoedit-like-applepls/references/critique.md#8-ce-que-la-critique-ne-voit-pas) et [`logiciels.md`](skills/sebmake-videoedit-like-applepls/references/logiciels.md#7-limites-connues).
 
 Un piège trouvé en route : dans FilmCraft, l'export de la séquence entière s'arrête au dernier plan et perd le noir final (44,04 s au lieu de 45,00 s). `filmcraft_build.py --rendre` exporte le montage de sa première à sa dernière image, noir compris.
 
@@ -63,7 +63,7 @@ A Claude Code skill that edits your footage the way the films shown during Apple
 
 A few of the counts: music doesn't drive the cuts (in documentaries, 363 of 597 cuts land on a sound onset, about what chance would give). No product film shows a number or ends on a slogan (0 of 16). When a film saves the product for the end, it shows up in full between 69% and 82% of the running time, never in the first shot. Trailers speed up: taken together, their median shot gets shorter with each third of the film (1.20 s, 0.90 s, 0.77 s).
 
-It asks what you have and what you're making, shows you a shot-by-shot plan, then builds or exports it. It won't make up a name, a job title, a number or a quote, and it only uses music you supply. Install with `claude plugin marketplace add sebmake/sebmake-cinematicvideo-likeapplepls`, then `claude plugin install sebmake-cinematicvideo-likeapplepls@sebmake-cinematic`. You'll need Python 3.9+, ffmpeg and ffprobe, plus numpy and Pillow in `~/.venv-cinematic` (`python3 -m venv ~/.venv-cinematic && ~/.venv-cinematic/bin/pip install numpy pillow`).
+It asks what you have and what you're making, shows you a shot-by-shot plan, then builds or exports it. It won't make up a name, a job title, a number or a quote, and it only uses music you supply. Install with `claude plugin marketplace add sebmake/sebmake-videoedit-like-applepls`, then `claude plugin install sebmake-videoedit-like-applepls@sebmake-videoedit`. You'll need Python 3.9+, ffmpeg and ffprobe, plus numpy and Pillow in `~/.venv-videoedit` (`python3 -m venv ~/.venv-videoedit && ~/.venv-videoedit/bin/pip install numpy pillow`).
 
 On 46 corpus films, the review raised no alert on 42. On a deliberately botched edit, it raised 4 alerts from the XML alone and 9 with Claude's by-eye notes; neither test proves it catches every mistake. Nobody has opened its files in Premiere Pro or DaVinci Resolve yet; they've been checked by the skill, by a second script and by FilmCraft's importer. Reviewing a rendered video alone catches less than reviewing the timeline: on the test renders it missed a cut between two similar dark shots and didn't catch a single fade to or from black. Whether it reads a video or an XML file, it takes zooms and rotations for static shots, and a reveal anywhere from 66% to 87% passes without comment. Vertical and square formats simply reuse the 16:9 rules, since no corpus film is vertical or square, and no export reframes the shots.
 
