@@ -1,6 +1,6 @@
 {
   "name": "sebmake-videoedit-like-applepls",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Builds a timeline from your footage (and music) following rules measured shot by shot in Apple keynote films: in FilmCraft, or as an FCP7 XML file for DaVinci Resolve and Premiere Pro, with an EDL as a fallback. Also reviews an existing edit with timecoded fixes.",
   "author": { "name": "sebmake" },
   "homepage": "https://github.com/sebmake/sebmake-videoedit-like-applepls",
