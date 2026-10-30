@@ -15,7 +15,7 @@ The rules come from the films of eight Apple keynotes, 2019 to 2026, broken down
 
 The skill's instructions are in French.
 
-[Watch the two test films in the latest release](https://github.com/sebmake/sebmake-videoedit-like-applepls/releases/latest)
+[Watch the Carnet example in the latest release](https://github.com/sebmake/sebmake-videoedit-like-applepls/releases/latest) (the two lamp test films are in [v1.0.0](https://github.com/sebmake/sebmake-videoedit-like-applepls/releases/tag/v1.0.0))
 
 ## Install
 
